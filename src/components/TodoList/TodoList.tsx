@@ -1,9 +1,17 @@
 import React from 'react';
 import { Todo } from '../../types/Todo';
 
-export const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
-  // console.log(todos);
+type Props = {
+  todos: Todo[];
+  selectedTodo: Todo | null;
+  setSelectedTodo: (todo: Todo | null) => void;
+};
 
+export const TodoList: React.FC<Props> = ({
+  todos,
+  // selectedTodo,
+  setSelectedTodo,
+}) => {
   return (
     <table className="table is-narrow is-fullwidth">
       <thead>
@@ -123,7 +131,15 @@ export const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
               </p>
             </td>
             <td className="has-text-right is-vcentered">
-              <button data-cy="selectButton" className="button" type="button">
+              <button
+                data-cy="selectButton"
+                className="button"
+                type="button"
+                onClick={() => {
+                  // console.log('Selected todo:', todo);
+                  setSelectedTodo(todo);
+                }}
+              >
                 <span className="icon">
                   <i className="far fa-eye" />
                 </span>
