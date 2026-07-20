@@ -5,10 +5,30 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 import { TodoList } from './components/TodoList';
 import { TodoFilter } from './components/TodoFilter';
-import { TodoModal } from './components/TodoModal';
+// import { TodoModal } from './components/TodoModal';
 import { Loader } from './components/Loader';
+import { getTodos } from './api';
+import { Todo } from './types/Todo';
 
 export const App: React.FC = () => {
+  const [todos, setTodos] = React.useState<Todo[]>([]);
+
+  React.useEffect(() => {
+    getTodos().then(todos_list => {
+      return setTodos(todos_list);
+    });
+  }, []);
+
+  // React.useEffect(() => {
+  //   if (todos.length > 0) {
+  //     const userId = todos[0].userId;
+
+  //     getUser(userId).then(user => {
+  //       console.log('User:', user);
+  //     });
+  //   }
+  // }, [todos]);
+
   return (
     <>
       <div className="section">
@@ -22,13 +42,13 @@ export const App: React.FC = () => {
 
             <div className="block">
               <Loader />
-              <TodoList />
+              <TodoList todos={todos} />
             </div>
           </div>
         </div>
       </div>
 
-      <TodoModal />
+      {/* <TodoModal /> */}
     </>
   );
 };
