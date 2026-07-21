@@ -15,6 +15,7 @@ export const App: React.FC = () => {
   const [todos, setTodos] = React.useState<Todo[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [selectedTodo, setSelectedTodo] = React.useState<Todo | null>(null);
+  const [filter, setFilter] = React.useState<string>('all');
 
   React.useEffect(() => {
     getTodos()
@@ -34,7 +35,7 @@ export const App: React.FC = () => {
             <h1 className="title">Todos:</h1>
 
             <div className="block">
-              <TodoFilter />
+              <TodoFilter filter={filter} setFilter={setFilter} />
             </div>
 
             <div className="block">
